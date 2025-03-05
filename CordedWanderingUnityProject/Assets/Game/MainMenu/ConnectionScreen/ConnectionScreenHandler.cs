@@ -21,6 +21,11 @@ namespace Game.MainMenu.ConnectionScreen
 
         protected override void PostShowLogic()
         {
+            var networkManager = NetworkManager.Singleton;
+            var transport = (networkManager.NetworkConfig.NetworkTransport as UnityTransport);
+            m_ipAddressField.text = transport.ConnectionData.Address;
+            m_portField.text = transport.ConnectionData.Port.ToString();
+            
             m_connectAsClientButton.onClick.AddListener(ConnectAsClient);
             m_connectAsHostButton.onClick.AddListener(ConnectAsHost);
         }
