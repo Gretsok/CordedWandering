@@ -9,6 +9,8 @@ namespace Game.Gameplay.Player.Pawn
         [field: SerializeField]
         public CharacterMovementController MovementController { get; private set; }
         [field: SerializeField]
+        public CharacterGravityApplier GravityApplier { get; private set; }
+        [field: SerializeField]
         public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField]
         public Transform CameraContainer { get; private set; }
@@ -16,6 +18,7 @@ namespace Game.Gameplay.Player.Pawn
         private void Start()
         {
             MovementController.SetDependencies(Rigidbody);
+            GravityApplier.SetDependencies(Rigidbody);
         }
     }
 }

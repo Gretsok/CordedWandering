@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Gameplay.Player.Control;
 using Game.Gameplay.Player.Pawn;
 using Game.Gameplay.Player.Pawn.LocalCharacterSystem;
+using Game.RuntimeDebugTools.Logs;
 using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -70,6 +72,8 @@ namespace Game.Gameplay.Player.Spawn
             character.GetComponent<NetworkObject>().SpawnWithOwnership(a_clientId);
             
             PlayerToCharacterAssociations.Add(new PlayerToCharacterAssociation() { Character = character, ClientID = a_clientId });
+            
+            LogConsole.Log($"[CHARACTER][SERVER] Character created for {a_clientId}");
         }
         
         private void InitializeAsClient()
@@ -82,6 +86,15 @@ namespace Game.Gameplay.Player.Spawn
         private void AskServerForCharacter_ServerRpc(ulong a_clientId)
         {
             Debug.Log("Asking server for character");
+            LogConsole.Log($"[CHARACTER][SERVER] Asking character for client {a_clientId}.");
+            StartCoroutine(AskServerForCharacter_ServerRpc_Routine(a_clientId));
+        }
+
+        private IEnumerator AskServerForCharacter_ServerRpc_Routine(ulong a_clientId)
+        {
+            yield return new WaitUntil(() =>
+            PlayerToCharacterAssociations.Exists(a_association => a_association.ClientID == a_clientId));
+            LogConsole.Log($"[CHARACTER][SERVER] Character found for client {a_clientId}.");
             SendCharacterToPlayer_ClientRpc( 
                 PlayerToCharacterAssociations.Find(a_association => a_association.ClientID == a_clientId).Character.NetworkObjectId,
                 RpcTarget.Single(a_clientId, RpcTargetUse.Temp));
@@ -90,14 +103,22 @@ namespace Game.Gameplay.Player.Spawn
         [Rpc(SendTo.SpecifiedInParams)]
         private void SendCharacterToPlayer_ClientRpc(ulong a_characterId, RpcParams a_params = default)
         {
-            Debug.Log("Sending character to player");
+            LogConsole.Log($"[CHARACTER][CLIENT] Character ID received : {a_characterId}.");
+            StartCoroutine(SendCharacterToPlayer_ClientRpc_Routine(a_characterId));
+        }
+
+        private IEnumerator SendCharacterToPlayer_ClientRpc_Routine(ulong a_characterId)
+        {
+            yield return new WaitUntil(() => NetworkManager.SpawnManager.SpawnedObjects.ContainsKey(a_characterId));
+            LogConsole.Log("[CHARACTER][CLIENT] Character found locally.");
+
             var character = NetworkManager.SpawnManager.SpawnedObjects[a_characterId]
                 .GetComponent<PlayerCharacterPawn>();
             
             m_playerInputController.SetPlayerCharacterPawn(character);
             m_localCharacterSystem.SetPlayerCharacterPawn(character);
         }
-        
+
         
     }
 }

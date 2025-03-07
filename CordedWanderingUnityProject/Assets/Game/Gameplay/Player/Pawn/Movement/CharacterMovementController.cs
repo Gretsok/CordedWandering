@@ -39,6 +39,7 @@ namespace Game.Gameplay.Player.Pawn.Movement
                 return;
 
             ApplyMovement();
+            ApplyLookAround();
         }
         
         private void ApplyMovement()
@@ -78,21 +79,28 @@ namespace Game.Gameplay.Player.Pawn.Movement
             
             m_rigidbody.linearVelocity = planarVelocity + heightVelocity;
         }
-        
-        private void Update()
-        {
-            if (!IsOwner)
-                return;
-
-            ApplyLookAround();
-        }
-
+  
         private void ApplyLookAround()
         {
             m_rigidbody.transform.Rotate(Vector3.up * (LookAroundInput.x * Time.deltaTime * MovementDataAsset.Sensitivities.x), Space.Self);
             
             var eulerAngles = VerticalSightTransform.localEulerAngles;
-            eulerAngles.x += (LookAroundInput.y * Time.deltaTime * MovementDataAsset.Sensitivities.y);
+            eulerAngles.x += (-LookAroundInput.y * Time.deltaTime * MovementDataAsset.Sensitivities.y);
+            if (eulerAngles.x > 180f)
+            {
+                if (eulerAngles.x < 360f - MovementDataAsset.SightVerticalLimits.x)
+                {
+                    eulerAngles.x = 360f - MovementDataAsset.SightVerticalLimits.x;
+                }
+            }
+            else
+            {
+                if (eulerAngles.x > MovementDataAsset.SightVerticalLimits.y)
+                {
+                    eulerAngles.x = MovementDataAsset.SightVerticalLimits.y;
+                }
+                
+            }
             //Debug.Log(eulerAngles.x);
             VerticalSightTransform.localEulerAngles = eulerAngles;
         }

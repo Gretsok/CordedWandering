@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 
 namespace Game.Gameplay.Player.Pawn.LocalCharacterSystem
 {
     public class LocalCharacterSystem : MonoBehaviour
     {
         [field: SerializeField]
-        public Camera Camera { get; private set; }
+        public CinemachineCamera Camera { get; private set; }
 
         public PlayerCharacterPawn PlayerCharacterPawn { get; private set; }
 

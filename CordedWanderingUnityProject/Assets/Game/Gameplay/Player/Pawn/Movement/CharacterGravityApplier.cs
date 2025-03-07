@@ -1,16 +1,26 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class CharacterGravityApplier : MonoBehaviour
+namespace Game.Gameplay.Player.Pawn.Movement
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class CharacterGravityApplier : NetworkBehaviour
     {
+        [SerializeField]
+        private float m_gravity = 40f;
         
-    }
+        private Rigidbody m_rigidbody;
 
-    // Update is called once per frame
-    void Update()
-    {
+        public void SetDependencies(Rigidbody a_rigidbody)
+        {
+            m_rigidbody = a_rigidbody;
+        }
         
+        private void FixedUpdate()
+        {
+            if (!IsOwner)
+                return;
+            
+            m_rigidbody.AddForce(Vector3.down * m_gravity, ForceMode.Acceleration);
+        }
     }
 }
