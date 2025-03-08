@@ -23,8 +23,6 @@ namespace Game.Gameplay.Player.Pawn.Animations
 
         private void Update()
         {
-            if (!IsOwner)
-                return;
             if (!m_animator)
                 return;
 
