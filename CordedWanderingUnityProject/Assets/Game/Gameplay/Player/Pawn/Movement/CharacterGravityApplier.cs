@@ -1,9 +1,10 @@
+using Game.Gameplay.Player.Pawn.Core;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Game.Gameplay.Player.Pawn.Movement
 {
-    public class CharacterGravityApplier : NetworkBehaviour
+    public class CharacterGravityApplier : ACharacterComponent
     {
         [SerializeField]
         private float m_gravity = 40f;

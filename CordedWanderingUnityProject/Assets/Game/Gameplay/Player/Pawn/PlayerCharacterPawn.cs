@@ -1,3 +1,4 @@
+using Game.Gameplay.Player.Pawn.Animations;
 using Game.Gameplay.Player.Pawn.Movement;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Game.Gameplay.Player.Pawn
         [field: SerializeField]
         public CharacterGravityApplier GravityApplier { get; private set; }
         [field: SerializeField]
+        public CharacterPawnAnimationsController AnimationsController { get; private set; }
+        [field: SerializeField]
         public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField]
         public Transform CameraContainer { get; private set; }
@@ -19,6 +22,7 @@ namespace Game.Gameplay.Player.Pawn
         {
             MovementController.SetDependencies(Rigidbody);
             GravityApplier.SetDependencies(Rigidbody);
+            AnimationsController.SetDependencies(Rigidbody);
         }
     }
 }

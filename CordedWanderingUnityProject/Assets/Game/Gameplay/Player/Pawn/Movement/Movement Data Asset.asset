@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Acceleration>k__BackingField: 60
   <Deceleration>k__BackingField: 20
-  <MaxSpeed>k__BackingField: 7
+  <MaxSpeed>k__BackingField: 4
   <JumpInitialSpeed>k__BackingField: 10
   <SightVerticalLimits>k__BackingField: {x: 60, y: 60}
   <Sensitivities>k__BackingField: {x: 15, y: 15}
