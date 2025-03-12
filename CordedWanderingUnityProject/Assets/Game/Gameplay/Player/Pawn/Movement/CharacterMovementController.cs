@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Gameplay.Player.Pawn.Core;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Game.Gameplay.Player.Pawn.Movement
@@ -13,6 +14,23 @@ namespace Game.Gameplay.Player.Pawn.Movement
         public Transform VerticalSightTransform { get; private set; }
         
         private Rigidbody m_rigidbody;
+        private NetworkVariable<float> m_sightXValue 
+            = new NetworkVariable<float>(readPerm: NetworkVariableReadPermission.Everyone, writePerm: NetworkVariableWritePermission.Owner);
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            if (IsClient && !IsOwner)
+            {
+                m_sightXValue.OnValueChanged += HandleSightXValueChangedOnOtherClients;
+            }
+        }
+
+        private void HandleSightXValueChangedOnOtherClients(float a_previousvalue, float a_newvalue)
+        {
+            var eulerAngles = new Vector3(a_newvalue, 0f, 0f);
+            VerticalSightTransform.localEulerAngles = eulerAngles;
+        }
 
         public void SetDependencies(Rigidbody a_rigidbody)
         {
@@ -102,6 +120,7 @@ namespace Game.Gameplay.Player.Pawn.Movement
                 
             }
             //Debug.Log(eulerAngles.x);
+            m_sightXValue.Value = eulerAngles.x;
             VerticalSightTransform.localEulerAngles = eulerAngles;
         }
         
