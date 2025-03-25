@@ -6,6 +6,7 @@ using Game.Gameplay.Player.Pawn;
 using Game.Gameplay.Player.Pawn.LocalCharacterSystem;
 using Game.RuntimeDebugTools.Logs;
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -49,24 +50,27 @@ namespace Game.Gameplay.Player.Spawn
 
         private void InitializeAsServer()
         {
-            NetworkManager.OnClientConnectedCallback += HandleNewClientConnected;
+            NetworkManager.OnClientConnectedCallback += HandleNewClientConnected_ServerOnly;
 
             for (int i = 0; i < NetworkManager.ConnectedClientsList.Count; i++)
             {
                 var client = NetworkManager.ConnectedClientsList[i];
-                CreateCharacterFor(client.ClientId);
+                CreateCharacterFor_ServerOnly(client.ClientId);
             }
         }
 
-        private void HandleNewClientConnected(ulong a_obj)
+        private void HandleNewClientConnected_ServerOnly(ulong a_obj)
         {
             if (PlayerToCharacterAssociations.Exists(x => x.ClientID == a_obj))
                 return;
-            CreateCharacterFor(a_obj);
+            CreateCharacterFor_ServerOnly(a_obj);
         }
 
-        private void CreateCharacterFor(ulong a_clientId)
+        private void CreateCharacterFor_ServerOnly(ulong a_clientId)
         {
+            if (!IsServer)
+                return;
+            
             var spawnPoint = m_spawnPoints[Random.Range(0, m_spawnPoints.Count)];
             var character = Instantiate(m_characterPrefab, spawnPoint.position, spawnPoint.rotation);
             character.GetComponent<NetworkObject>().SpawnWithOwnership(a_clientId);
@@ -74,6 +78,7 @@ namespace Game.Gameplay.Player.Spawn
             PlayerToCharacterAssociations.Add(new PlayerToCharacterAssociation() { Character = character, ClientID = a_clientId });
             
             LogConsole.Log($"[CHARACTER][SERVER] Character created for {a_clientId}");
+            NotifyNewCharacterCreated_ServerOnly(character.NetworkObjectId);
         }
         
         private void InitializeAsClient()
@@ -119,6 +124,22 @@ namespace Game.Gameplay.Player.Spawn
             m_localCharacterSystem.SetPlayerCharacterPawn(character);
         }
 
+        #region Notifications
+
+        public Action<CharacterSpawner, ulong> OnCharacterCreated_ServerOnly;
+        public Action<CharacterSpawner, ulong> OnCharacterCreated_Clients;
+        private void NotifyNewCharacterCreated_ServerOnly(ulong a_characterId)
+        {
+            OnCharacterCreated_ServerOnly?.Invoke(this, a_characterId);
+            NotifyNewCharacterCreated_ClientsRpc(a_characterId);
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void NotifyNewCharacterCreated_ClientsRpc(ulong a_characterId)
+        {
+            OnCharacterCreated_Clients?.Invoke(this, a_characterId);
+        }
+        #endregion
         
     }
 }
