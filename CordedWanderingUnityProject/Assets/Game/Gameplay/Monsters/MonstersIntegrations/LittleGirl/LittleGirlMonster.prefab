@@ -48,7 +48,20 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   m_onBehaviourStarted_Clients:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8058995932329152869}
+        m_TargetAssemblyTypeName: Game.Gameplay.Monsters.MonstersIntegrations.LittleGirl.LittleGirlAnimationsController,
+          Assembly-CSharp
+        m_MethodName: SetIsMoving
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onBehaviourStarted_Server:
     m_PersistentCalls:
       m_Calls: []
@@ -110,6 +123,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   <Anchor>k__BackingField: {fileID: 3825485300925770674}
+--- !u!1 &2555744916567808272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6279500568029768362}
+  - component: {fileID: 688628718418565203}
+  m_Layer: 0
+  m_Name: PlayerDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6279500568029768362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2555744916567808272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4874419877875080052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &688628718418565203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2555744916567808272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae6056aa92af594d996cd32d6d2717b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  m_detectionDistance: 4
+  m_localOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2561735011729490945
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,8 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3222244575
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 1937007785
+  InScenePlacedSourceGlobalObjectIdHash: 3140391436
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -470,6 +530,7 @@ Transform:
   - {fileID: 1344305517279647093}
   - {fileID: 7085128399535213739}
   - {fileID: 8609592518857245672}
+  - {fileID: 6279500568029768362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3233789924734741168
@@ -484,8 +545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4277086452
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3955508157
+  InScenePlacedSourceGlobalObjectIdHash: 3140391436
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -605,6 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   m_brain: {fileID: 8300372846219487707}
+  m_playerDetector: {fileID: 688628718418565203}
   m_idleBehaviourAnchor: {fileID: 3825485300925770674}
   m_moveBehaviourAnchor: {fileID: 7620830081494049002}
 --- !u!1 &8507907541759400764
@@ -655,7 +717,20 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   m_onBehaviourStarted_Clients:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8058995932329152869}
+        m_TargetAssemblyTypeName: Game.Gameplay.Monsters.MonstersIntegrations.LittleGirl.LittleGirlAnimationsController,
+          Assembly-CSharp
+        m_MethodName: SetIsMoving
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_onBehaviourStarted_Server:
     m_PersistentCalls:
       m_Calls: []
@@ -751,7 +826,7 @@ Animator:
   m_GameObject: {fileID: 1909894201368095757}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2e315391b55ac74091d1b9ece74124d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

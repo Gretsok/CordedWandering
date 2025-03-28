@@ -9,6 +9,9 @@ namespace Game.Gameplay.Monsters.BehaviourSystem.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            if (!Application.isPlaying)
+                return;
             
             var castedTarget = (target as MonsterBrain)!;
             

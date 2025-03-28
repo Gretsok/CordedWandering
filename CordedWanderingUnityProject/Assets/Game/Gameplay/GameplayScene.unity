@@ -4434,37 +4434,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1282010786871375543, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1282010786871375543, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1282010786871375543, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1282010786871375543, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1282010786871375543, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2032641735009642417, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: a2e315391b55ac74091d1b9ece74124d, type: 2}
     - target: {fileID: 3233789924734741168, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3955508157
-      objectReference: {fileID: 0}
-    - target: {fileID: 3233789924734741168, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 3140391436
       objectReference: {fileID: 0}
     - target: {fileID: 4874419877875080052, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4513,10 +4485,6 @@ PrefabInstance:
     - target: {fileID: 7463179194818755446, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1937007785
-      objectReference: {fileID: 0}
-    - target: {fileID: 7463179194818755446, guid: f05ed908f58e1864bb1d1b1f4974ecc9, type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 3140391436
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
